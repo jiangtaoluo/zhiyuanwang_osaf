@@ -1,0 +1,37 @@
+model:
+  name: 'osnet_x1_0'
+  pretrained: True
+
+data:
+  type: 'image'
+  sources: ['VeRi']
+  targets: ['VeRi']
+  height: 320
+  width: 320
+  combineall: False
+  transforms: ['random_flip','random_erase']
+  save_dir: '../log/osnet_x1_0_softmax_320x320_DTM_transform_amsgrad_cosine'
+
+loss:
+  name: 'softmax'
+  softmax:
+    label_smooth: True
+
+train:
+  optim: 'amsgrad'
+  lr: 0.0015
+  max_epoch: 250
+  batch_size: 64
+  fixbase_epoch: 10
+  open_layers: ['classifier']
+  lr_scheduler: 'cosine'
+
+test:
+  batch_size: 300
+  dist_metric: 'euclidean'
+  eval_freq: 10
+  normalize_feature: False    # normalize feature vectors before computing distance
+  evaluate: False     # test only
+#  eval_freq: -1     # evaluation frequency (-1 means to only test after training)
+  rerank: True      # use person re-ranking
+  #visrank: True       #visualize ranked results (only available when cfg.test.evaluate=True)
