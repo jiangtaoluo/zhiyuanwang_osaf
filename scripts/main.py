@@ -129,7 +129,7 @@ def main():
         pretrained=cfg.model.pretrained,
         use_gpu=cfg.use_gpu
     )
-
+    # print('model:',model)
     # num_params, flops = compute_model_complexity(
     #     model, (1, 3, cfg.data.height, cfg.data.width)
     # )
